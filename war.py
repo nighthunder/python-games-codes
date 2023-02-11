@@ -88,8 +88,11 @@ class Player():
         war_cards = []
         if len(self.hand.cards) < 3:
             return self.hand.cards
-        for x in range(3):
-            war_cards.append(self.hand.cards.pop())
+        if len(self.hand.cards) < 3:
+            return self.hand.cards
+        else:
+            for x in range(3):
+                war_cards.append(self.hand.cards.pop())
         return war_cards
         
     def still_has_cards(self):
