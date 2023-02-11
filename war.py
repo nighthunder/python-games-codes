@@ -39,7 +39,7 @@ class Deck():
     splitting/cutting the deck in half and shuffling the deck.
     """
 
-    def __init__(self, deck) -> None:
+    def __init__(self) -> None:
         print("Creating new ordered deck!")
         self.allcards = [(s,r) for s in SUITE for r in RANKS]
 
@@ -63,7 +63,7 @@ class Hand():
         return "Contains {} cards".format(len(self.cards))
 
     def add(self, added_cards):
-        self.cards.extended(added_cards)
+        self.cards.extend(added_cards)
 
     def remove_card(self):
         return self.cards.pop()
@@ -86,6 +86,8 @@ class Player():
 
     def remove_war_cards(self):
         war_cards = []
+        if len(self.hand.cards) < 3:
+            return self.hand.cards
         for x in range(3):
             war_cards.append(self.hand.cards.pop())
         return war_cards
@@ -117,7 +119,7 @@ user = Player(name, Hand(half2))
 total_rounds  = 0
 war_count = 0
 
-while user.still_has_cards() and computer.still_has_cards():
+while user.still_has_cards() and comp.still_has_cards():
     total_rounds += total_rounds
     print("Time for a new round")
     print("Here are the current standings")
@@ -141,4 +143,19 @@ while user.still_has_cards() and computer.still_has_cards():
         table_cards.extend(user.remove_war_cards())
         table_cards.extend(comp.remove_war_cards())
 
+        if RANKS.index(c_card[1]) < RANKS.index(p_card[1]):
+            user.hand.add(table_cards)
+        else:
+            comp.hand.add(table_cards)
+    else:
+
+        if RANKS.index(c_card[1]) < RANKS.index(p_card[1]):
+            user.hand.add(table_cards)
+        else:
+            comp.hand.add(table_cards)
         
+print("Game over, number of rounds: " + str(total_rounds))
+
+print("A war happened: " + str(war_count) + " times")
+
+
