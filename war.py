@@ -161,4 +161,11 @@ print("Game over, number of rounds: " + str(total_rounds))
 
 print("A war happened: " + str(war_count) + " times")
 
+print("Does the computer still have cards? ")
+
+print(str(comp.still_has_cards()))
+
+print("Does the player still have cards? ")
+
+print(str(user.still_has_cards()))
 
